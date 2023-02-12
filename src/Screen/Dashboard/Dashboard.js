@@ -3,17 +3,24 @@ import React, {useEffect, useState} from 'react';
 import Pie from 'react-native-pie';
 import colors from '../../Theme/color';
 import styles from './Styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Dashboard = ({route}) => {
   const [vDissappointed, setvDissappointed] = useState('');
   const [disappointed, setDisappointed] = useState('');
   const [ndisappointed, setNdisappointed] = useState('');
   useEffect(() => {
+    getData()
     console.log('Key', route.params, route.params.veryDiss);
     setDisappointed(route.params.diss),
       setNdisappointed(route.params.NoDiss),
       setvDissappointed(route.params.veryDiss);
   }, []);
+
+  const getData =async()=>{
+    const temp = await AsyncStorage.getItem('data')
+    console.log(JSON.parse(temp));
+  }
 
   const Status = ({text, color,state}) => {
     return (
