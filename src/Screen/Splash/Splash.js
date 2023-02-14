@@ -5,7 +5,7 @@ import colors from '../../Theme/color'
 const Splash = ({navigation}) => {
     useEffect(() => {
      setTimeout(()=>{
-        navigation.navigate('Survey')
+        navigation.replace('Survey')
      },3000)
     }, [])
     

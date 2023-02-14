@@ -11,7 +11,6 @@ import React, {useEffect, useState} from 'react';
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
 import styles from './Styles';
 import CustomTextInput from './Components/CustomTextInput';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Survey = ({navigation}) => {
   const [users, setUsers] = useState(0);
@@ -19,21 +18,7 @@ const Survey = ({navigation}) => {
   const [disappointed, setDisappointed] = useState(0);
   const [ndisappointed, setNdisappointed] = useState(0);
 
-  useEffect(() => {
-    getData();
-  }, []);
 
-  const getData = async () => {
-    const temp = await AsyncStorage.getItem('data');
-    const data = JSON.parse(temp)
-    console.log("Data ============>",data);
-    if (data) {
-      console.log("Hello",data.NoDiss);
-      setDisappointed(data.diss),
-      setNdisappointed(data.NoDiss),
-      setvDissappointed(data.veryDiss);
-    }
-  };
 
   const save = () => {
     const v = (vDissappointed * 100) / users;
@@ -46,7 +31,6 @@ const Survey = ({navigation}) => {
           diss: d,
           NoDiss: n,
         };
-        AsyncStorage.setItem('data', JSON.stringify(data));
         navigation.navigate('Dashboard', data);
       } else {
         alert('Please enter valid Data');
